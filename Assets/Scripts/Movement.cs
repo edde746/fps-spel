@@ -9,11 +9,21 @@ public class Movement : MonoBehaviour
     Vector3 velocity;
 
     bool onGround = false;
+    Progress game;
+
+    void Start()
+    {
+        game = GameObject.FindWithTag("GameController").GetComponent<Progress>();
+    }
 
     void Update()
     {
-        onGround = Physics.CheckSphere(transform.position + new Vector3(0f, -0.6f, 0f), 0.5f, ~(1<<6));
-        if (onGround && velocity.y < 0f) {
+        if (game.state > Progress.GameState.OVER)
+            return;
+
+        onGround = Physics.CheckSphere(transform.position + new Vector3(0f, -0.6f, 0f), 0.5f, ~(1 << 6));
+        if (onGround && velocity.y < 0f)
+        {
             velocity.y = -2f;
         }
 
@@ -21,9 +31,10 @@ public class Movement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 direction = transform.right * x + transform.forward * z;
-        controller.Move(direction*speed*Time.deltaTime);
 
-        velocity += Physics.gravity * Time.deltaTime;
+        controller.Move(direction * speed * Time.deltaTime);
+
+        velocity += Physics.gravity * 1.5f * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 }

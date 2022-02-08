@@ -13,6 +13,13 @@ public class TargetCounter : MonoBehaviour
 
     void Update()
     {
-        mesh.text = $"Targets remaining: {game.RemainingTargetCount()}";
+        if (game.state == Progress.GameState.PLAYING)
+            mesh.text = $"Targets remaining: {game.RemainingTargetCount()}\nTime remaining: {Mathf.Round(game.time)}s";
+        else if (game.state == Progress.GameState.LOST)
+            mesh.text = "You Lost\nPress R to restart"; // Inefficient to update every frame
+        else if (game.state == Progress.GameState.WON)
+            mesh.text = "You Won\nPress R to restart";
+        else
+            mesh.text = "Move to start";
     }
 }
