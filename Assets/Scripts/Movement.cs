@@ -34,7 +34,12 @@ public class Movement : MonoBehaviour
 
         controller.Move(direction * speed * Time.deltaTime);
 
-        velocity += Physics.gravity * 1.5f * Time.deltaTime;
+        velocity += Physics.gravity * 2f * Time.deltaTime;
+
+        if (onGround && Input.GetKeyDown(KeyCode.Space)) {
+            velocity.y += 9f;
+        }
+
         controller.Move(velocity * Time.deltaTime);
     }
 }
