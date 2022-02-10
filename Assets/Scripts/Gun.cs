@@ -15,7 +15,7 @@ public class Gun : MonoBehaviour
 
     public int bulletsInMagazine = 20;
     public int magazineSize = 20;
-    public float reloadTime = 17f;
+    public float reloadTime = 3f;
     TextMeshProUGUI counter;
     bool reloading = false;
 
@@ -26,25 +26,32 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        cooldown -= Time.deltaTime;
-        if (reloading && cooldown <= 0f)
+        // Manage cooldown
+        if (cooldown > 0f)
+            cooldown -= Time.deltaTime;
+
+        // Reload animation & finish reload
+        if (reloading)
         {
-            counter.text = $"{magazineSize}/{magazineSize}";
-            reloading = false;
+            // Some issue with Lerping rotation here :(
+            transform.Rotate(360f / (reloadTime / Time.deltaTime), 0f, 0f);
+
+            if (cooldown <= 0f)
+            {
+                transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+                counter.text = $"{magazineSize}/{magazineSize}";
+                reloading = false;
+            }
         }
 
         if (Input.GetButton("Fire1") && cooldown <= 0f && bulletsInMagazine > 0)
         {
+            // Update bullets & manage firerate
             bulletsInMagazine -= 1;
             counter.text = $"{bulletsInMagazine}/{magazineSize}";
-            if (bulletsInMagazine <= 0)
-            {
-                cooldown = reloadTime;
-                bulletsInMagazine = magazineSize;
-                counter.text = "Reloading...";
-                reloading = true;
-            }
+            cooldown = 1f / fireRate;
 
+            // Play muzzle flash & raycast to hit object
             muzzleFlash.Play();
             RaycastHit ray;
             var hit = Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out ray);
@@ -58,11 +65,14 @@ public class Gun : MonoBehaviour
                 }
             }
 
-            cooldown = 1f / fireRate;
+            // Auto reload when out of bullets
+            if (bulletsInMagazine <= 0)
+            {
+                cooldown = reloadTime;
+                bulletsInMagazine = magazineSize;
+                counter.text = "Reloading...";
+                reloading = true;
+            }
         }
-
-        if (counter && cooldown <= 0f)
-            counter.text = $"{bulletsInMagazine}/{magazineSize}";
-
     }
 }

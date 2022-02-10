@@ -1,5 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &5505984797854568655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659072571013531380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060fd75378937574dbd2720b13038e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  range: 100
+  fireRate: 2
+  fpsCamera: {fileID: 5505984796426090696}
+  muzzleFlash: {fileID: 5668286336981953317}
+  impactParticle: {fileID: 641091843044206376, guid: e269e9c5211ae894e89d4d88af0bc19c, type: 3}
+  bulletsInMagazine: 20
+  magazineSize: 20
+  reloadTime: 0.5
 --- !u!1 &5505984796426090698
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,24 +313,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5505984797222894417}
   speed: 12
---- !u!114 &5505984797854568655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4659072571013531380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 060fd75378937574dbd2720b13038e9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  range: 100
-  fireRate: 2
-  fpsCamera: {fileID: 5505984796426090696}
-  muzzleFlash: {fileID: 5668286336981953317}
-  impactParticle: {fileID: 641091843044206376, guid: e269e9c5211ae894e89d4d88af0bc19c, type: 3}
 --- !u!1001 &5505984797196659203
 PrefabInstance:
   m_ObjectHideFlags: 0
